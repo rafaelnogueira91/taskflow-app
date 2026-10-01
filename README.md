@@ -2,14 +2,25 @@
 
 TaskFlow es una aplicación móvil desarrollada con React Native y Expo.
 
-Este proyecto corresponde al Checkpoint 1 y establece la estructura base que se utilizará durante el desarrollo de la aplicación.
+El proyecto cuenta con una estructura organizada en componentes, pantallas, recursos y constantes de estilos, permitiendo continuar incorporando nuevas funcionalidades en los próximos módulos.
 
 ## Estructura del proyecto
 
 - `src/components`: componentes reutilizables de la interfaz.
 - `src/screens`: pantallas principales de la aplicación.
 - `src/assets`: imágenes y recursos locales.
-- `src/theme`: colores y estilos globales.
+- `src/constants`: colores y constantes utilizadas en la aplicación.
+
+## Pantallas implementadas
+
+- `HomeScreen`: pantalla base para mostrar las tareas.
+- `ProfileScreen`: pantalla de perfil del usuario.
+
+## Componentes implementados
+
+- `ProfileCard`: componente reutilizable que recibe mediante props el nombre, rol e imagen del usuario.
+
+Actualmente, `ProfileScreen` utiliza `ProfileCard` para mostrar datos de prueba y verificar el funcionamiento del componente.
 
 ## Ejecución local
 
@@ -21,12 +32,8 @@ Este proyecto corresponde al Checkpoint 1 y establece la estructura base que se 
 
    npx expo start
 
-3. Abrir la aplicación utilizando Expo Go o un emulador compatible.
+3. Abrir la aplicación utilizando Expo Go, un emulador compatible o la versión web.
 
-## Checkpoint 1
+## Visualización
 
-La pantalla inicial muestra:
-
-- TaskFlow
-- Checkpoint 1: Estructura Base
-- Estructura base lista
+Se logró visualizar correctamente `ProfileScreen`, mostrando el componente `ProfileCard` con el nombre, rol e imagen del usuario.
