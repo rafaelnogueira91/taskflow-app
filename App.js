@@ -1,5 +1,6 @@
-import ProfileScreen from './src/screens/ProfileScreen';
+
+import AddTaskScreen from './src/screens/AddTaskScreen';
 
 export default function App() {
-  return <ProfileScreen />;
+  return <AddTaskScreen />;
 }
