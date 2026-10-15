@@ -20,9 +20,11 @@ export default function AddTaskScreen() {
   const [category, setCategory] = useState('Personal');
   const [errors, setErrors] = useState({});
   const [focused, setFocused] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
   const categories = ['Personal', 'Trabajo', 'Estudio'];
 
+  // Valida los valores actuales antes de simular el guardado.
   const validateForm = () => {
     const newErrors = {};
 
@@ -40,6 +42,7 @@ export default function AddTaskScreen() {
   };
 
   const handleAddTask = () => {
+    setSubmitted(true);
     if (!validateForm()) return;
 
     const task = {
@@ -51,13 +54,40 @@ export default function AddTaskScreen() {
 
     console.log('Tarea creada:', task);
 
-    Alert.alert('Éxito', 'Tarea capturada localmente');
-
+    // Limpia primero: en web Alert.alert no siempre está implementado.
     setTitle('');
     setDescription('');
     setCategory('Personal');
     setErrors({});
     setFocused('');
+    setSubmitted(false);
+
+    if (Platform.OS === 'web') {
+      window.alert('Éxito: Tarea capturada localmente');
+    } else {
+      Alert.alert('Éxito', 'Tarea capturada localmente');
+    }
+  };
+
+  // Al corregir un campo, elimina su error solo cuando ya es válido.
+  const handleTitleChange = (value) => {
+    setTitle(value);
+    if (submitted) {
+      setErrors((current) => ({
+        ...current,
+        title: value.trim().length >= 5 ? undefined : 'El título debe tener al menos 5 caracteres.',
+      }));
+    }
+  };
+
+  const handleDescriptionChange = (value) => {
+    setDescription(value);
+    if (submitted) {
+      setErrors((current) => ({
+        ...current,
+        description: value.trim().length >= 10 ? undefined : 'La descripción debe tener al menos 10 caracteres.',
+      }));
+    }
   };
 
   return (
@@ -79,10 +109,11 @@ export default function AddTaskScreen() {
           placeholderTextColor={colors.text}
           selectionColor={colors.primary}
           value={title}
-          onChangeText={setTitle}
+          onChangeText={handleTitleChange}
           onFocus={() => setFocused('title')}
           onBlur={() => setFocused('')}
           autoCapitalize="sentences"
+          keyboardType="default"
           returnKeyType="next"
         />
         {errors.title && (
@@ -101,10 +132,11 @@ export default function AddTaskScreen() {
           placeholderTextColor={colors.text}
           selectionColor={colors.primary}
           value={description}
-          onChangeText={setDescription}
+          onChangeText={handleDescriptionChange}
           onFocus={() => setFocused('description')}
           onBlur={() => setFocused('')}
           multiline
+          keyboardType="default"
           textAlignVertical="top"
           autoCapitalize="sentences"
         />
